@@ -8,6 +8,7 @@ namespace Entities
     public class MoveToTarget : MonoBehaviour
     {
         [SerializeField] private float _speed;
+        
         private Transform _target;
 
         [Inject]

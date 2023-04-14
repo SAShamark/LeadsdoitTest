@@ -18,6 +18,11 @@ namespace Entities.Point
 
         private void Update()
         {
+            MoveToTargetY();
+        }
+
+        private void MoveToTargetY()
+        {
             transform.position = new Vector2(transform.position.x, _target.position.y);
         }
     }

@@ -9,6 +9,7 @@ namespace UI
     {
         [SerializeField] private TMP_Text _text;
         [SerializeField] private string _format = "{0}";
+        
         private IBank _bank;
 
         [Inject]

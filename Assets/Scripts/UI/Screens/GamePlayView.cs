@@ -17,6 +17,7 @@ namespace UI.Screens
 
         [SerializeField] private float _timeForStart;
         [SerializeField] private string _textAfterTime;
+        
         private IGameplaySequence _gameplaySequence;
         private GameObject _activePanel;
         private float _time;

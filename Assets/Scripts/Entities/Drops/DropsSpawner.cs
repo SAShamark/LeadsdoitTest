@@ -8,14 +8,11 @@ namespace Entities.Drops
     public class DropsSpawner : MonoBehaviour
     {
         [SerializeField] private float _leftXOffset = 0.2f;
-
         [SerializeField] private float _rightXOffset = -0.2f;
-
         [SerializeField] private float _yOffset = 2f;
         [SerializeField] private float _timeBeforeFirstSpawn;
         [SerializeField] private float _defaultDuration;
         [SerializeField] private bool _isSpawnDown;
-
         [SerializeField] private string _key;
 
         private Services.Factories.IFactoryProvider<Drop> _factoryProvider;
