@@ -7,11 +7,10 @@ namespace Entities.Catcheables.Good
     {
         [SerializeField] private float _seconds;
         [SerializeField] private float _radius;
-        [SerializeField] private LayerMask _layerMask;
 
         public void Catch(ICatchHandler catchHandler)
         {
-            catchHandler.Magnet(_seconds, _radius, _layerMask);
+            catchHandler.Magnet(_seconds, _radius);
         }
     }
 }

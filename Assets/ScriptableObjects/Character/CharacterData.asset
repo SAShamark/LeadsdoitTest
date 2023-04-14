@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b36d3154810a453aa1f5eb8d80d460df, type: 3}
   m_Name: CharacterData
   m_EditorClassIdentifier: 
-  _maxSpeed: 5
-  _minSpeed: 0
-  _acceleration: 1
-  _deceleration: 1
-  _turnSpeed: 0.2
-  _startHealth: 100
-  _maxHealth: 100
-  _startShield: 0
-  _maxShield: 100
+  _characterStats:
+    _maxSpeed: 7
+    _minSpeed: 0
+    _acceleration: 1
+    _deceleration: 1
+    _turnSpeed: 0.2
+    _startHealth: 100
+    _maxHealth: 100
+    _startShield: 0
+    _maxShield: 100

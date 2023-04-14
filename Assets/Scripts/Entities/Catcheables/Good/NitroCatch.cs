@@ -5,12 +5,11 @@ namespace Entities.Catcheables.Good
 {
     public class NitroCatch : MonoBehaviour, ICatcheable
     {
-        [SerializeField] private float _seconds;
-        [SerializeField] private float _percentForSpeed;
+        [Range(0, 1)] [SerializeField] private float _percentForSpeed;
 
         public void Catch(ICatchHandler catchHandler)
         {
-            catchHandler.Nitro(_seconds, _percentForSpeed);
+            catchHandler.Nitro(_percentForSpeed);
         }
     }
 }

@@ -89,20 +89,20 @@ namespace Entities.Characters
             _bank.EarnCurrency(value);
         }
 
-        public void Magnet(float seconds, float radius, LayerMask layerMask)
+        public void Magnet(float seconds, float radius)
         {
             _magnet.Init(radius);
             StartCoroutine(TemporaryMagnet(seconds));
         }
 
-        public void Slowdown(float seconds, float percent)
+        public void Slowdown(float percent)
         {
-            StartCoroutine(_characterStatsController.TemporarySpeedSlowdown(seconds, percent));
+            _characterStatsController.Slowdown(percent);
         }
 
-        public void Nitro(float seconds, float percent)
+        public void Nitro(float percent)
         {
-            StartCoroutine(_characterStatsController.TemporaryNitro(seconds, percent));
+            _characterStatsController.Nitro(percent);
         }
 
         public void Shield(int value)

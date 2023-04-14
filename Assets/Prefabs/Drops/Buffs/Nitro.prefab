@@ -192,4 +192,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _seconds: 15
-  _percentForSpeed: 25
+  _percentForSpeed: 0.25

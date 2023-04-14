@@ -108,7 +108,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _seconds: 10
-  _slowdownPercent: 25
+  _slowdownPercent: 0.25
 --- !u!1 &8579553697023577598
 GameObject:
   m_ObjectHideFlags: 0

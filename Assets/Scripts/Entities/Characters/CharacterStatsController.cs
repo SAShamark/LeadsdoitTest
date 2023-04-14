@@ -47,7 +47,6 @@ namespace Entities.Characters
         public void Heal(int value)
         {
             CurrentHealth = Mathf.Clamp(CurrentHealth + value, 0, _characterStats.MaxHealth);
-
         }
 
         public void Die()
@@ -58,7 +57,6 @@ namespace Entities.Characters
         public void Shield(int value)
         {
             CurrentShield = Mathf.Clamp(CurrentShield + value, 0, _characterStats.MaxShield);
-
         }
 
         public void MoveAccelerate()
@@ -76,21 +74,14 @@ namespace Entities.Characters
                 CurrentMoveSpeed -= _characterStats.Deceleration * Time.deltaTime;
             }
         }
-
-        public IEnumerator TemporarySpeedSlowdown(float seconds, float percent)
+        
+        public void Slowdown(float percent)
         {
-            float startSpeed = CurrentMoveSpeed;
-            CurrentMoveSpeed *= 1f - percent / _characterStats.MaxSpeed;
-            yield return new WaitForSeconds(seconds);
-            CurrentMoveSpeed = startSpeed;
+            CurrentMoveSpeed -= (CurrentMoveSpeed * percent);
         }
-
-        public IEnumerator TemporaryNitro(float seconds, float percent)
+        public void Nitro(float percent)
         {
-            float startSpeed = CurrentMoveSpeed;
-            CurrentMoveSpeed *= 1f - percent / _characterStats.MaxSpeed;
-            yield return new WaitForSeconds(seconds);
-            CurrentMoveSpeed = startSpeed;
+            CurrentMoveSpeed += (CurrentMoveSpeed * percent);
         }
     }
 }
