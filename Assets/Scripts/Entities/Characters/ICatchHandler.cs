@@ -1,5 +1,3 @@
-using UnityEngine;
-
 namespace Entities.Characters
 {
     public interface ICatchHandler
