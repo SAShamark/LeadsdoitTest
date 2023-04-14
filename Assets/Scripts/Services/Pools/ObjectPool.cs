@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Entities;
+using Entities.Destroyables;
 using UnityEngine;
 using Zenject;
 

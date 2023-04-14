@@ -1,81 +1,67 @@
+using System.Collections;
 using Services.Input;
+using Services.Money;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using Zenject;
 
 namespace Entities.Characters
 {
     public class Character : MonoBehaviour, ICatchHandler
     {
-        [SerializeField] private float _maxSpeed = 10f;
-        [SerializeField] private float _minSpeed;
-        [SerializeField] private float _acceleration = 5f;
-        [SerializeField] private float _deceleration = 10f;
-        [SerializeField] private float _turnSpeed = 0.2f;
-        [SerializeField] private float _currentMoveSpeed;
-        [SerializeField] private int _startHealth;
+        [SerializeField] private CharacterData _characterData;
+        [SerializeField] private Magnet _magnet;
 
         private IInputService _inputService;
+        private IBank _bank;
         private Rigidbody2D _rigidbody;
-
-        private int _currentHealth;
-        private int _maxHealth;
+        private CharacterStatsController _characterStatsController;
 
         [Inject]
-        private void Construct(IInputService inputService)
+        private void Construct(IInputService inputService, IBank bank)
         {
             _inputService = inputService;
+            _bank = bank;
         }
 
         private void Start()
         {
             _rigidbody = GetComponent<Rigidbody2D>();
-            _maxHealth = _startHealth;
+            _characterStatsController = new CharacterStatsController(_characterData.CharacterStats);
         }
 
         private void Update()
         {
             if (_inputService.IsMove())
             {
-                MoveAccelerate();
+                _characterStatsController.MoveAccelerate();
             }
 
-            if (_inputService.IsStop() && _currentMoveSpeed > 0)
+            if (_inputService.IsStop() && _characterStatsController.CurrentMoveSpeed > 0)
             {
-                MoveDecelerate();
+                _characterStatsController.MoveDecelerate();
             }
         }
 
         private void FixedUpdate()
         {
-            _currentMoveSpeed = Mathf.Max(_currentMoveSpeed, 0f);
-            Vector3 direction = transform.up * _currentMoveSpeed;
-
+            Vector3 direction = transform.up * _characterStatsController.CurrentMoveSpeed;
             Move(direction);
             Turn();
         }
 
         public void Damage(int value)
         {
-            if (_currentHealth > 0)
-            {
-                _currentHealth -= value;
-            }
-
-            if (_currentHealth <= 0)
-            {
-                Die();
-            }
+            _characterStatsController.Damage(value);
         }
 
         public void Heal(int value)
         {
-            _currentHealth = Mathf.Clamp(value, 0, _maxHealth);
+            _characterStatsController.Heal(value);
         }
 
         public void Die()
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            _characterStatsController.Die();
         }
 
         private void Move(Vector3 direction)
@@ -93,24 +79,42 @@ namespace Entities.Characters
 
         private void Turn()
         {
-            float xPosition = transform.position.x + _inputService.Axis.x * _turnSpeed;
+            float xPosition = transform.position.x + _inputService.Axis.x * _characterData.CharacterStats.TurnSpeed;
             transform.position = new Vector2(xPosition, transform.position.y);
         }
 
-        private void MoveAccelerate()
+
+        public void EarnCoin(int value)
         {
-            if (_currentMoveSpeed < _maxSpeed)
-            {
-                _currentMoveSpeed += _acceleration * Time.deltaTime;
-            }
+            _bank.EarnCurrency(value);
         }
 
-        private void MoveDecelerate()
+        public void Magnet(float seconds, float radius, LayerMask layerMask)
         {
-            if (_currentMoveSpeed > _minSpeed)
-            {
-                _currentMoveSpeed -= _deceleration * Time.deltaTime;
-            }
+            _magnet.Init(radius);
+            StartCoroutine(TemporaryMagnet(seconds));
+        }
+
+        public void Slowdown(float seconds, float percent)
+        {
+            StartCoroutine(_characterStatsController.TemporarySpeedSlowdown(seconds, percent));
+        }
+
+        public void Nitro(float seconds, float percent)
+        {
+            StartCoroutine(_characterStatsController.TemporaryNitro(seconds, percent));
+        }
+
+        public void Shield(int value)
+        {
+            _characterStatsController.Shield(value);
+        }
+
+        private IEnumerator TemporaryMagnet(float seconds)
+        {
+            _magnet.OnMagnet();
+            yield return new WaitForSeconds(seconds);
+            _magnet.OffMagnet();
         }
     }
 }

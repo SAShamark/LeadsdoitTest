@@ -1,4 +1,4 @@
-using Entities;
+using Entities.Point;
 using UnityEngine;
 using Zenject;
 
