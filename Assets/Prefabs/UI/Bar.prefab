@@ -86,7 +86,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1156690113990335367}
   - component: {fileID: 1156690113990335368}
-  - component: {fileID: 5164732988422009978}
   m_Layer: 5
   m_Name: Bar
   m_TagString: Untagged
@@ -123,22 +122,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1156690113990335364}
   m_CullTransparentMesh: 1
---- !u!114 &5164732988422009978
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1156690113990335364}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8109beba6de4a2a8286ddd03f932149, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _fieldImage: {fileID: 1156690113496333706}
-  _text: {fileID: 1156690114513335400}
-  _fieldSprite: {fileID: 0}
-  _name: 0
 --- !u!1 &1156690114513335398
 GameObject:
   m_ObjectHideFlags: 0
