@@ -1,17 +1,24 @@
+using Entities.Characters;
 using UnityEngine;
+using Zenject;
 
 namespace Entities.Roads
 {
     public class RoadMover : MonoBehaviour
     {
-        [SerializeField] private Transform _target;
         [SerializeField] private Transform _road1;
         [SerializeField] private Transform _road2;
-        
+
+        private Transform _target;
         private bool _isMoveRoad1;
 
         private const float ForwardDistance = 20;
 
+        [Inject]
+        private void Construct(Character character)
+        {
+            _target = character.transform;
+        }
 
         private void Update()
         {

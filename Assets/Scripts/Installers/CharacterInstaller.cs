@@ -7,6 +7,8 @@ namespace Installers
     public class CharacterInstaller : MonoInstaller
     {
         [SerializeField] private Character _character;
+        [SerializeField] private CharacterData _characterData;
+        [SerializeField] private Transform _container;
 
         public override void InstallBindings()
         {
@@ -15,7 +17,9 @@ namespace Installers
 
         private void Character()
         {
-            Container.Bind<Character>().FromInstance(_character).AsSingle().NonLazy();
+            var character = Container.InstantiatePrefabForComponent<Character>(_character, _container);
+            character.Initialize(_characterData);
+            Container.Bind(typeof(Character)).FromInstance(character).AsSingle();
         }
     }
 }

@@ -1,4 +1,5 @@
 using System.Collections;
+using Entities.Camera;
 using Services.Input;
 using Services.Money;
 using UnityEngine;
@@ -8,13 +9,14 @@ namespace Entities.Characters
 {
     public class Character : MonoBehaviour, ICatchHandler
     {
-        [SerializeField] private CharacterData _characterData;
         [SerializeField] private Magnet _magnet;
 
         private IInputService _inputService;
         private IBank _bank;
         private Rigidbody2D _rigidbody;
         private CharacterStatsController _characterStatsController;
+        private CharacterData _characterData;
+        private UnityEngine.Camera _camera;
 
         [Inject]
         private void Construct(IInputService inputService, IBank bank)
@@ -26,7 +28,8 @@ namespace Entities.Characters
         private void Start()
         {
             _rigidbody = GetComponent<Rigidbody2D>();
-            _characterStatsController = new CharacterStatsController(_characterData.CharacterStats);
+            _camera = UnityEngine.Camera.main;
+            CameraFollow();
         }
 
         private void Update()
@@ -48,6 +51,14 @@ namespace Entities.Characters
             Move(direction);
             Turn();
         }
+
+        public void Initialize(CharacterData characterData)
+        {
+            _characterData = characterData;
+            _characterStatsController = new CharacterStatsController(_characterData.CharacterStats);
+        }
+
+        private void CameraFollow() => _camera.GetComponent<CameraFollow>().Follow(gameObject.transform);
 
         public void Damage(int value)
         {
